@@ -1,34 +1,37 @@
-//console.log("Express Tutorial");
 const express = require("express");
 const app = express();
+
+const { products, people } = require("./data");
+const peopleRouter = require("./routes/people");
+
+// Middleware
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-const { products, people } = require("./data");
-const peopleRouter = require("./routes/people");
-app.use(express.static("./methods-public "));
+// Static files
+
+app.use(express.static("./methods-public"));
 
 app.use("/api/v1/people", peopleRouter);
 
 const logger = (req, res, next) => {
   const currentTime = new Date().toISOString();
-  console.log(`Here is log: [${currentTime}] ${req.method} ${req.url}`);
+
+  console.log(
+    `Here is time: ${currentTime} method: ${req.method}  url: ${req.url}`
+  );
   next();
 };
 
-app.use(logger);
+//app.use(logger);
+
+// app.get('/',logger, (req,res)=>{
+//   res.send('Home page')
+// })
 
 app.get("/about", logger, (req, res) => {
   res.send("About Page");
-});
-
-app.get("/api/v1/test", (req, res) => {
-  res.json({ message: "It worked!" });
-});
-
-app.get("/api/v1/people", (req, res) => {
-  res.json(people);
 });
 
 app.get("/api/v1/products", (req, res) => {
