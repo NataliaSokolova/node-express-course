@@ -2,11 +2,12 @@ require('./db/connect')
 console.log('Task Manager App')
 const express = require('express');
 const app  = express();
-const tasks = require('./routes/tasks')
-const connectDB = require('./db/connect')
-require('dotenv').config
+const tasks = require('./routes/tasks');
+const connectDB = require('./db/connect');
+require('dotenv').config();
 
 
+//console.log(process.env.MONGO_URI)
 // middlewarew
 
 app.use(express.json())
@@ -32,6 +33,6 @@ const start = async () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
   start()
