@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const db = mongoose.connection.useDb('Store');
 
 const TaskSchema = new mongoose.Schema({
   name: {
