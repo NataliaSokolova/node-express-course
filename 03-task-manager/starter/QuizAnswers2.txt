@@ -1,0 +1,26 @@
+### QuizAnswers2.txt
+
+#### 1. Why was the asyncWrapper middleware function created?
+The `asyncWrapper` middleware was created to handle errors in asynchronous functions gracefully.
+It prevents repetitive `try-catch` blocks in each route handler. By wrapping an asynchronous function in `asyncWrapper`, any errors thrown during execution are automatically passed to the `next` function, which directs them to the centralized error-handling middleware. This approach simplifies code readability and maintains a consistent error-handling mechanism throughout the application.
+
+---
+
+#### 2. Complete the `getTask` function code.
+```javascript
+const getTask = asyncWrapper(async (req, res, next) => {  
+  const { id: taskID } = req.params;  
+  const task = await Task.findOne({ _id: taskID });  
+  if (!task) {  
+    return next(new CustomAPIError(`No task with id: ${taskID}`, 404));  
+  }  
+  res.status(200).json({ task });  
+});  
+```
+
+Explanation: When a task is not found, a new instance of the `CustomAPIError` class is created with a message and a status code. This instance is passed to the `next` function, which ensures that the error is handled by the centralized error middleware.
+
+---
+
+#### 3. Why use express-async-errors instead of creating asyncWrapper?
+`express-async-errors` is an NPM package that automatically handles errors in asynchronous functions without the need to manually wrap them in a middleware like `asyncWrapper`. By using this package, developers can reduce boilerplate code and streamline error handling across the application. It intercepts errors from asynchronous route handlers and forwards them to the centralized error middleware seamlessly.
