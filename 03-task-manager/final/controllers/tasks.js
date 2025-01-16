@@ -20,6 +20,8 @@ const getTask = asyncWrapper(async (req, res, next) => {
 
   res.status(200).json({ task })
 })
+
+
 const deleteTask = asyncWrapper(async (req, res, next) => {
   const { id: taskID } = req.params
   const task = await Task.findOneAndDelete({ _id: taskID })

@@ -18,7 +18,7 @@ const login = async (req,res) => {
    
     
     
-    res.send('Fake Login/Register/Signup')
+   // res.send('Fake Login/Register/Signup')
 }
 
 const dashboard = async (req,res) => {
